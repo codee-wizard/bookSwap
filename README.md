@@ -31,7 +31,7 @@
 | **Backend** | Node.js, Express.js |
 | **Database** | MongoDB|
 | **Authentication** | JWT |
-| **Hosting** | Vercel, Railway, MongoDB Atlas |
+| **Hosting** | Vercel, Render, MongoDB Atlas |
 
 ---
 
