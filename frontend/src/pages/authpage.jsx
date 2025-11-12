@@ -53,7 +53,6 @@ export function AuthPage() {
           password: formData.password,
         });
         alert("Login successful!");
-        console.log("Login response:", res);
       } else {
         const res = await register({
           username: formData.name,
@@ -61,8 +60,7 @@ export function AuthPage() {
           password: formData.password,
         });
         alert("Account created successfully!");
-        console.log("Register response:", res);
-        setIsLogin(true); // switch to login page after successful signup
+        setIsLogin(true);
       }
     } catch (err) {
       console.error("Auth error:", err);

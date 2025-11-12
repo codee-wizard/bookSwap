@@ -6,14 +6,14 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const login = async (credentials) => {
     const response = await authService.login(credentials);
-    const token = response.data?.token || response.data?.data?.token;
+    const token = response.data?.data?.token;
     if (token) localStorage.setItem("token", token);
     return response.data;
   };
 
   const register = async (data) => {
     const response = await authService.register(data);
-    const token = response.data?.token || response.data?.data?.token;
+    const token = response.data?.data?.token;
     if (token) localStorage.setItem("token", token);
     return response.data;
   };
