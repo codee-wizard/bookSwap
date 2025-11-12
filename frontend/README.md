@@ -1,16 +1,47 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Frontend:** React.js + React Router  
+**Backend:** Node.js + Express.js  
+**Database:** MongoDB  
+**Authentication:** JWT-based login/signup  
 
-Currently, two official plugins are available:
+**Hosting:**
+- Frontend → Vercel  
+- Backend → Render
+- Database → MongoDB Atlas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## ✨ Key Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| Category | Features |
+|-----------|-----------|
+| **Authentication & Authorization** | User registration, login/logout, JWT auth |
+| **CRUD Operations** | Create, read, update, delete book listings; manage swap requests |
+| **Filtering / Searching / Sorting / Pagination** | Search by genre, author, or title; sort by most recent or popular; paginate book lists |
+| **Frontend Routing** | Pages: Home, Book List, Book Detail, My Books, Profile |
+| **Hosting** | Deploy both frontend and backend with publicly accessible URLs |
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Tech Stack
+
+| Layer | Technologies |
+|--------|---------------|
+| **Frontend** | React.js, React Router, TailwindCSS |
+| **Backend** | Node.js, Express.js |
+| **Database** | MongoDB|
+| **Authentication** | JWT |
+| **Hosting** | Vercel, Railway, MongoDB Atlas |
+
+---
+
+## 🔗 API Overview
+
+| Endpoint | Method | Description | Access |
+|-----------|--------|--------------|---------|
+| `/api/auth/signup` | POST | Register new user | Public |
+| `/api/auth/login` | POST | Authenticate user | Public |
+| `/api/books` | GET | Get all books | Authenticated |
+| `/api/books` | POST | Add a new book | Authenticated |
+| `/api/books/:id` | PUT | Update book details | Authenticated |
+| `/api/books/:id` | DELETE | Delete a book | Admin only |
