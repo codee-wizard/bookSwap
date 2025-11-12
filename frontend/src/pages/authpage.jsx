@@ -1,4 +1,3 @@
-// src/pages/AuthPage.jsx
 import { useState } from "react";
 import { BookOpen, Sparkles, Star, Feather } from "lucide-react";
 import { useAuth } from "../context/authContext";
