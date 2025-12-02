@@ -7,19 +7,28 @@ export const AuthProvider = ({ children }) => {
   const login = async (credentials) => {
     const response = await authService.login(credentials);
     const token = response.data?.data?.token;
-    if (token) localStorage.setItem("token", token);
+    const user = response.data?.data;
+    if (token) {
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+    }
     return response.data;
   };
 
   const register = async (data) => {
     const response = await authService.register(data);
     const token = response.data?.data?.token;
-    if (token) localStorage.setItem("token", token);
+    const user = response.data?.data;
+    if (token) {
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+    }
     return response.data;
   };
 
   const logout = () => {
     authService.logout();
+    localStorage.removeItem("user");
   };
 
   return (

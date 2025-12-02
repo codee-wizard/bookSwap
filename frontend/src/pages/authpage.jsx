@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { BookOpen, Sparkles, Star, Feather } from "lucide-react";
+import { BookOpen, Sparkles, Star, Feather, ArrowLeft } from "lucide-react";
 import { useAuth } from "../context/authContext";
+import { useNavigate, useLocation } from "react-router-dom";
+
 
 // Independent reusable components
 function Button({ type = "button", className = "", children, ...props }) {
@@ -40,8 +42,17 @@ function Label({ htmlFor, children, className = "" }) {
 // Main Auth component
 export function AuthPage() {
   const { login, register } = useAuth();
-  const [isLogin, setIsLogin] = useState(false);
-  const [formData, setFormData] = useState({ name: "", email: "", password: "" });
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [isLogin, setIsLogin] = useState(location.state?.isLogin || false);
+  const [formData, setFormData] = useState({ name: "", email: "", password: "", fullName: "", location: "" });
+
+  // Update state if location state changes (e.g. navigation from landing page)
+  useState(() => {
+    if (location.state?.isLogin !== undefined) {
+      setIsLogin(location.state.isLogin);
+    }
+  }, [location.state]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -51,14 +62,16 @@ export function AuthPage() {
           email: formData.email,
           password: formData.password,
         });
-        alert("Login successful!");
+        navigate('/');
       } else {
         const res = await register({
           username: formData.name,
           email: formData.email,
           password: formData.password,
+          fullName: formData.fullName,
+          location: formData.location
         });
-        alert("Account created successfully!");
+        navigate('/');
         setIsLogin(true);
       }
     } catch (err) {
@@ -87,6 +100,14 @@ export function AuthPage() {
           />
         ))}
       </div>
+
+      {/* Back Button */}
+      <button
+        onClick={() => navigate('/')}
+        className="absolute top-6 left-6 z-50 p-2 rounded-full bg-white/80 backdrop-blur-sm text-[#6B5B73] hover:text-[#9B7EBD] hover:bg-white transition-all shadow-sm group"
+      >
+        <ArrowLeft className="w-6 h-6 group-hover:-translate-x-1 transition-transform" />
+      </button>
 
       {/* Left Section */}
       <div className="hidden lg:flex lg:w-1/2 relative items-center justify-center p-12 overflow-hidden">
@@ -169,21 +190,53 @@ export function AuthPage() {
 
             <form onSubmit={handleSubmit} className="space-y-6">
               {!isLogin && (
-                <div>
-                  <Label htmlFor="name" className="text-[#3D3344]">
-                    Full Name
-                  </Label>
-                  <Input
-                    id="name"
-                    type="text"
-                    value={formData.name}
-                    onChange={(e) =>
-                      setFormData({ ...formData, name: e.target.value })
-                    }
-                    placeholder="Enter your name"
-                    required={!isLogin}
-                  />
-                </div>
+                <>
+                  <div>
+                    <Label htmlFor="name" className="text-[#3D3344]">
+                      Username
+                    </Label>
+                    <Input
+                      id="name"
+                      type="text"
+                      value={formData.name}
+                      onChange={(e) =>
+                        setFormData({ ...formData, name: e.target.value })
+                      }
+                      placeholder="Choose a username"
+                      required={!isLogin}
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="fullName" className="text-[#3D3344]">
+                      Full Name
+                    </Label>
+                    <Input
+                      id="fullName"
+                      type="text"
+                      value={formData.fullName}
+                      onChange={(e) =>
+                        setFormData({ ...formData, fullName: e.target.value })
+                      }
+                      placeholder="Enter your full name"
+                      required={!isLogin}
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="location" className="text-[#3D3344]">
+                      Location
+                    </Label>
+                    <Input
+                      id="location"
+                      type="text"
+                      value={formData.location}
+                      onChange={(e) =>
+                        setFormData({ ...formData, location: e.target.value })
+                      }
+                      placeholder="City, State (e.g. Boston, MA)"
+                      required={!isLogin}
+                    />
+                  </div>
+                </>
               )}
 
               <div>

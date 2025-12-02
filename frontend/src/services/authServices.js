@@ -2,8 +2,10 @@ import API from './api'
 
 export const authService = {
     login: (credential) => API.post('/auth/login', credential),
-    register: (data) => API.post('/auth/register',data),
-    logout: ()=>{
+    register: (data) => API.post('/auth/register', data),
+    updateProfile: (data) => API.put('/auth/profile', data),
+    getStats: () => API.get('/auth/stats'),
+    logout: () => {
         localStorage.removeItem('token')
     }
 }
