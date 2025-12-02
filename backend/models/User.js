@@ -24,6 +24,10 @@ const User = new mongoose.Schema({
         type: String,
         required: true
     },
+    about: {
+        type: String,
+        default: "An avid reader and lover of stories. Always seeking new adventures through books and sharing the magic of reading with fellow book enthusiasts. Favorite genres include fantasy, mystery, and literary fiction."
+    },
     role: {
         type: String,
         enum: ['user', 'admin'],

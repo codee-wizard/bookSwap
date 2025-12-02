@@ -36,6 +36,7 @@ const registerUser = async (req, res) => {
                 email: user.email,
                 fullName: user.fullName,
                 location: user.location,
+                about: user.about,
                 role: user.role,
                 token,
             }
@@ -65,6 +66,7 @@ const loginUser = async (req, res) => {
                     email: user.email,
                     fullName: user.fullName,
                     location: user.location,
+                    about: user.about,
                     role: user.role,
                     token,
                 }
@@ -93,6 +95,7 @@ const updateProfile = async (req, res) => {
             user.fullName = req.body.fullName || user.fullName;
             user.email = req.body.email || user.email;
             user.location = req.body.location || user.location;
+            user.about = req.body.about || user.about;
 
             const updatedUser = await user.save();
 
@@ -105,6 +108,7 @@ const updateProfile = async (req, res) => {
                     email: updatedUser.email,
                     fullName: updatedUser.fullName,
                     location: updatedUser.location,
+                    about: updatedUser.about,
                     role: updatedUser.role
                 }
             });

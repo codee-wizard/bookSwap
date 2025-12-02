@@ -13,7 +13,8 @@ export function Profile() {
         username: user.username || '',
         fullName: user.fullName || '',
         location: user.location || '',
-        email: user.email || ''
+        email: user.email || '',
+        about: user.about || ''
     });
 
     const [stats, setStats] = useState({
@@ -160,7 +161,7 @@ export function Profile() {
                         <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 border border-[#E8C4D4]/30 shadow-md">
                             <h3 className="text-xl font-bold text-[#3D3344] mb-4">About Me</h3>
                             <p className="text-[#6B5B73] leading-relaxed">
-                                An avid reader and lover of stories. Always seeking new adventures through books and sharing the magic of reading with fellow book enthusiasts. Favorite genres include fantasy, mystery, and literary fiction.
+                                {user.about || "An avid reader and lover of stories. Always seeking new adventures through books and sharing the magic of reading with fellow book enthusiasts. Favorite genres include fantasy, mystery, and literary fiction."}
                             </p>
                         </div>
 
@@ -271,6 +272,14 @@ export function Profile() {
                                     value={editData.location}
                                     onChange={(e) => setEditData({ ...editData, location: e.target.value })}
                                     className="w-full px-4 py-3 rounded-xl bg-[#F5EEF9] border-none focus:ring-2 focus:ring-[#9B7EBD]/20"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-[#3D3344] mb-2">About Me</label>
+                                <textarea
+                                    value={editData.about}
+                                    onChange={(e) => setEditData({ ...editData, about: e.target.value })}
+                                    className="w-full px-4 py-3 rounded-xl bg-[#F5EEF9] border-none focus:ring-2 focus:ring-[#9B7EBD]/20 h-32 resize-none"
                                 />
                             </div>
                         </div>
