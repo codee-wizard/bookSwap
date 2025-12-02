@@ -14,7 +14,7 @@ export function Profile() {
         fullName: user.fullName || '',
         location: user.location || '',
         email: user.email || '',
-        about: user.about || ''
+        about: user.about || "An avid reader and lover of stories. Always seeking new adventures through books and sharing the magic of reading with fellow book enthusiasts. Favorite genres include fantasy, mystery, and literary fiction."
     });
 
     const [stats, setStats] = useState({
