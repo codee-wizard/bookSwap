@@ -116,7 +116,7 @@ export function MyBooks() {
                         className="flex items-center gap-2 px-6 py-3 rounded-full bg-[#9B7EBD] text-white font-medium hover:bg-[#8A6EA8] transition-colors shadow-lg hover:shadow-xl"
                     >
                         <Plus className="w-5 h-5" />
-                        Add New Story
+                        Add New Book
                     </button>
                 </div>
 
