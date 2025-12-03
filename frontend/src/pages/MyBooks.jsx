@@ -278,7 +278,27 @@ export function MyBooks() {
                                             value={formData.genre}
                                             onChange={e => setFormData({ ...formData, genre: e.target.value })}
                                             className="w-full px-4 py-3 rounded-xl bg-[#F5EEF9] border-none focus:ring-2 focus:ring-[#9B7EBD]/20"
+                                            list="genre-options"
+                                            placeholder="Select or type genre"
                                         />
+                                        <datalist id="genre-options">
+                                            <option value="Romance" />
+                                            <option value="Thriller" />
+                                            <option value="Sci-Fi" />
+                                            <option value="Biography" />
+                                            <option value="Self-help" />
+                                            <option value="History" />
+                                            <option value="Sonnet" />
+                                            <option value="Free Verse" />
+                                            <option value="Haiku" />
+                                            <option value="Plays" />
+                                            <option value="Screenplays" />
+                                            <option value="Textbooks" />
+                                            <option value="Manuals" />
+                                            <option value="Comics" />
+                                            <option value="Novellas" />
+                                            <option value="Anthologies" />
+                                        </datalist>
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium text-[#3D3344] mb-2">Condition</label>

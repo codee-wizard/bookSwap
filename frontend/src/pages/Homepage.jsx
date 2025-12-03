@@ -12,6 +12,7 @@ export function Homepage() {
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState('');
     const [filterType, setFilterType] = useState('');
+    const [genre, setGenre] = useState('');
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(false);
 
@@ -20,11 +21,11 @@ export function Homepage() {
     useEffect(() => {
         setPage(1); // Reset page when filters change
         fetchBooks(1, true);
-    }, [search, filterType]);
+    }, [search, filterType, genre]);
 
     const fetchBooks = async (pageNum = 1, isNewFilter = false) => {
         try {
-            const params = { search, type: filterType, page: pageNum, limit: 8 };
+            const params = { search, type: filterType, genre, page: pageNum, limit: 8 };
             const res = await bookService.getAllBooks(params);
 
             if (isNewFilter) {
@@ -93,6 +94,29 @@ export function Homepage() {
                                 <option value="">All Types</option>
                                 <option value="Swap">Swap</option>
                                 <option value="Sell">Buy</option>
+                            </select>
+                            <select
+                                value={genre}
+                                onChange={(e) => setGenre(e.target.value)}
+                                className="px-3 py-3 rounded-xl bg-[#F5EEF9] text-[#6B5B73] border-none focus:ring-2 focus:ring-[#9B7EBD]/20"
+                            >
+                                <option value="">All Genres</option>
+                                <option value="Romance">Romance</option>
+                                <option value="Thriller">Thriller</option>
+                                <option value="Sci-Fi">Sci-Fi</option>
+                                <option value="Biography">Biography</option>
+                                <option value="Self-help">Self-help</option>
+                                <option value="History">History</option>
+                                <option value="Sonnet">Sonnet</option>
+                                <option value="Free Verse">Free Verse</option>
+                                <option value="Haiku">Haiku</option>
+                                <option value="Plays">Plays</option>
+                                <option value="Screenplays">Screenplays</option>
+                                <option value="Textbooks">Textbooks</option>
+                                <option value="Manuals">Manuals</option>
+                                <option value="Comics">Comics</option>
+                                <option value="Novellas">Novellas</option>
+                                <option value="Anthologies">Anthologies</option>
                             </select>
                         </div>
                     </div>
