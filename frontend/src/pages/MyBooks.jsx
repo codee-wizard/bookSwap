@@ -46,7 +46,7 @@ export function MyBooks() {
     };
 
     const activeRequests = swapRequests.filter(req => req.book && req.status === 'pending').length;
-    const completedSwaps = swapRequests.filter(req => req.book && req.status === 'accepted').length;
+    const completedSwaps = swapRequests.filter(req => req.book && (req.status === 'accepted' || req.status === 'delivered')).length;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -59,6 +59,7 @@ export function MyBooks() {
             setShowModal(false);
             setEditingBook(null);
             fetchMyBooks();
+            fetchSwapRequests(); // Refresh swap requests in case of any changes
             setFormData({
                 title: '', author: '', genre: '', condition: 'Good',
                 description: '', price: '', imageURL: '',
@@ -91,6 +92,7 @@ export function MyBooks() {
             try {
                 await bookService.deleteBook(bookId);
                 fetchMyBooks();
+                fetchSwapRequests(); // Refresh swap requests to update counts
             } catch (error) {
                 alert('Error deleting book');
             }
