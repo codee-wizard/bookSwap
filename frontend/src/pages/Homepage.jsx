@@ -76,7 +76,7 @@ export function Homepage() {
                     </p>
 
                     {/* Search & Filter */}
-                    <div className="bg-white p-3 sm:p-4 rounded-2xl shadow-lg border border-[#E8C4D4]/30 flex flex-col gap-3 sm:gap-4">
+                    <div className="bg-white p-3 sm:p-4 rounded-2xl shadow-lg border border-[#E8C4D4]/30 flex flex-row gap-3 sm:gap-4">
                         <div className="flex-1 relative">
                             <Search className="absolute left-3 top-3 sm:top-3.5 w-4 sm:w-5 h-4 sm:h-5 text-[#A795AD]" />
                             <input
@@ -87,11 +87,11 @@ export function Homepage() {
                                 className="w-full pl-9 sm:pl-10 pr-4 py-2.5 sm:py-3 rounded-xl bg-[#F5EEF9] border-none focus:ring-2 focus:ring-[#9B7EBD]/20 text-[#3D3344] placeholder-[#A795AD] text-sm sm:text-base"
                             />
                         </div>
-                        <div className="flex gap-3 sm:gap-4">
+                        <div className="flex-shrink-0">
                             <select
                                 value={genre}
                                 onChange={(e) => setGenre(e.target.value)}
-                                className="flex-1 px-3 py-2.5 sm:py-3 rounded-xl bg-[#F5EEF9] text-[#6B5B73] border-none focus:ring-2 focus:ring-[#9B7EBD]/20 text-sm sm:text-base"
+                                className="px-3 py-2.5 sm:py-3 rounded-xl bg-[#F5EEF9] text-[#6B5B73] border-none focus:ring-2 focus:ring-[#9B7EBD]/20 text-sm sm:text-base"
                             >
                                 <option value="">All Genres</option>
                                 <option value="Fiction">Fiction</option>
