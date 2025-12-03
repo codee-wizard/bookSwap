@@ -105,17 +105,17 @@ export function MyBooks() {
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 {/* Header */}
-                <div className="flex justify-between items-start mb-6">
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4 sm:gap-0 mb-6">
                     <div>
                         <div className="flex items-center gap-2 mb-2">
                             <BookOpen className="w-6 h-6 text-[#9B7EBD]" />
-                            <h1 className="text-3xl font-bold text-[#3D3344]">My Collection</h1>
+                            <h1 className="text-2xl sm:text-3xl font-bold text-[#3D3344]">My Collection</h1>
                         </div>
-                        <p className="text-[#6B5B73]">Manage your treasured stories and swap requests</p>
+                        <p className="text-sm sm:text-base text-[#6B5B73]">Manage your treasured stories and swap requests</p>
                     </div>
                     <button
                         onClick={() => setShowModal(true)}
-                        className="flex items-center gap-2 px-6 py-3 rounded-full bg-[#9B7EBD] text-white font-medium hover:bg-[#8A6EA8] transition-colors shadow-lg hover:shadow-xl"
+                        className="flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#9B7EBD] text-white font-medium hover:bg-[#8A6EA8] transition-colors shadow-lg hover:shadow-xl w-full sm:w-auto"
                     >
                         <Plus className="w-5 h-5" />
                         Add New Book
@@ -162,10 +162,10 @@ export function MyBooks() {
                 {/* Books List */}
                 <div className="space-y-4">
                     {myBooks.map(book => (
-                        <div key={book._id} className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-[#E8C4D4]/30 shadow-md hover:shadow-lg transition-all">
-                            <div className="flex gap-6">
+                        <div key={book._id} className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border border-[#E8C4D4]/30 shadow-md hover:shadow-lg transition-all">
+                            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
                                 {/* Book Image */}
-                                <div className="w-32 h-40 rounded-xl overflow-hidden bg-[#F5EEF9] flex-shrink-0">
+                                <div className="w-24 h-32 sm:w-32 sm:h-40 rounded-xl overflow-hidden bg-[#F5EEF9] flex-shrink-0 mx-auto sm:mx-0">
                                     {book.imageURL ? (
                                         <img src={book.imageURL} alt={book.title} className="w-full h-full object-cover" />
                                     ) : (
@@ -235,7 +235,7 @@ export function MyBooks() {
                 {/* Add Book Modal */}
                 {showModal && (
                     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-                        <div className="bg-white rounded-3xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+                        <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
                             <div className="flex justify-between items-center mb-6">
                                 <h2 className="text-2xl font-bold text-[#3D3344]">{editingBook ? 'Edit Book' : 'Add a New Book'}</h2>
                                 <button onClick={() => {
@@ -247,7 +247,7 @@ export function MyBooks() {
                             </div>
 
                             <form onSubmit={handleSubmit} className="space-y-6">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                                     <div>
                                         <label className="block text-sm font-medium text-[#3D3344] mb-2">Title</label>
                                         <input
@@ -270,7 +270,7 @@ export function MyBooks() {
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                                     <div>
                                         <label className="block text-sm font-medium text-[#3D3344] mb-2">Genre</label>
                                         <input
@@ -343,7 +343,7 @@ export function MyBooks() {
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-3 gap-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                                     <div>
                                         <label className="block text-sm font-medium text-[#3D3344] mb-2">Published Year</label>
                                         <input

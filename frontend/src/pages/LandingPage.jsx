@@ -36,11 +36,11 @@ export function LandingPage() {
                             <span>A Magical Book Exchange</span>
                         </div>
 
-                        <h1 className="text-5xl lg:text-6xl font-serif text-[#3D3344] leading-tight mb-6">
+                        <h1 className="text-3xl sm:text-4xl lg:text-6xl font-serif text-[#3D3344] leading-tight mb-6">
                             Swap, Share, and Discover the Stories That Find You
                         </h1>
 
-                        <p className="text-lg text-[#6B5B73] mb-10 leading-relaxed max-w-lg">
+                        <p className="text-base sm:text-lg text-[#6B5B73] mb-8 sm:mb-10 leading-relaxed max-w-lg">
                             Step into an enchanted library where books find new homes and readers discover their next adventure. Join our magical community of storytellers and dreamers.
                         </p>
 
@@ -62,18 +62,18 @@ export function LandingPage() {
                             </Link>
                         </div>
 
-                        <div className="mt-16 grid grid-cols-3 gap-8">
+                        <div className="mt-8 sm:mt-16 grid grid-cols-3 gap-4 sm:gap-8">
                             <div>
-                                <div className="text-3xl font-bold text-[#9B7EBD] mb-1">10,000+</div>
-                                <div className="text-[#6B5B73] text-sm">Books Swapped</div>
+                                <div className="text-xl sm:text-3xl font-bold text-[#9B7EBD] mb-1">10,000+</div>
+                                <div className="text-[#6B5B73] text-xs sm:text-sm">Books Swapped</div>
                             </div>
                             <div>
-                                <div className="text-3xl font-bold text-[#9B7EBD] mb-1">5,000+</div>
-                                <div className="text-[#6B5B73] text-sm">Active Readers</div>
+                                <div className="text-xl sm:text-3xl font-bold text-[#9B7EBD] mb-1">5,000+</div>
+                                <div className="text-[#6B5B73] text-xs sm:text-sm">Active Readers</div>
                             </div>
                             <div>
-                                <div className="text-3xl font-bold text-[#9B7EBD] mb-1">50+</div>
-                                <div className="text-[#6B5B73] text-sm">Communities</div>
+                                <div className="text-xl sm:text-3xl font-bold text-[#9B7EBD] mb-1">50+</div>
+                                <div className="text-[#6B5B73] text-xs sm:text-sm">Communities</div>
                             </div>
                         </div>
                     </div>
@@ -108,11 +108,11 @@ export function LandingPage() {
                         <span className="text-[#D4A574]">✦</span>
                         How the Magic Works
                     </div>
-                    <h2 className="text-3xl md:text-4xl font-serif text-[#3D3344] mb-16">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-[#3D3344] mb-8 sm:mb-16">
                         Share your beloved books and discover new worlds in just a few enchanted steps
                     </h2>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12">
                         {[
                             { icon: BookOpen, title: "List Your Books", desc: "Add your treasured stories to the collection", color: "bg-[#E8C4D4]" },
                             { icon: Users, title: "Browse the Library", desc: "Explore books from kindred spirits nearby", color: "bg-[#9B7EBD]" },
@@ -120,13 +120,13 @@ export function LandingPage() {
                             { icon: Shield, title: "Safe Exchange", desc: "Meet safely and share the magic", color: "bg-[#7B8FA3]" }
                         ].map((item, i) => (
                             <div key={i} className="flex flex-col items-center group">
-                                <div className={`w-20 h-20 rounded-full ${item.color}/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                                    <div className={`w-12 h-12 rounded-full ${item.color} flex items-center justify-center text-white shadow-lg`}>
-                                        <item.icon className="w-6 h-6" />
+                                <div className={`w-16 sm:w-20 h-16 sm:h-20 rounded-full ${item.color}/20 flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                                    <div className={`w-10 sm:w-12 h-10 sm:h-12 rounded-full ${item.color} flex items-center justify-center text-white shadow-lg`}>
+                                        <item.icon className="w-5 sm:w-6 h-5 sm:h-6" />
                                     </div>
                                 </div>
-                                <h3 className="text-xl font-bold text-[#3D3344] mb-3">{item.title}</h3>
-                                <p className="text-[#6B5B73] leading-relaxed">{item.desc}</p>
+                                <h3 className="text-lg sm:text-xl font-bold text-[#3D3344] mb-2 sm:mb-3">{item.title}</h3>
+                                <p className="text-sm sm:text-base text-[#6B5B73] leading-relaxed text-center">{item.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -139,10 +139,10 @@ export function LandingPage() {
                     <div className="mb-8 flex justify-center">
                         <Sparkles className="w-12 h-12 text-[#D4A574]" />
                     </div>
-                    <h2 className="text-4xl md:text-5xl font-serif text-[#3D3344] mb-6">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif text-[#3D3344] mb-4 sm:mb-6">
                         Ready to Begin Your Journey?
                     </h2>
-                    <p className="text-xl text-[#6B5B73] mb-10">
+                    <p className="text-lg sm:text-xl text-[#6B5B73] mb-8 sm:mb-10">
                         Join our enchanted community of book lovers. Your next adventure awaits.
                     </p>
                     <Link

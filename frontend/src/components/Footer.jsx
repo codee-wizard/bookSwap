@@ -3,11 +3,11 @@ import { BookOpen, Mail, Heart, Star } from 'lucide-react';
 export function Footer() {
     return (
         <footer className="bg-gradient-to-br from-[#F5EEF9] via-[#F9F6FA] to-[#FFF8F0] border-t border-[#E8C4D4]/30 mt-auto">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
                     {/* Brand */}
-                    <div>
-                        <div className="flex items-center gap-2 mb-4">
+                    <div className="text-center md:text-left">
+                        <div className="flex items-center gap-2 mb-4 justify-center md:justify-start">
                             <BookOpen className="w-7 h-7 text-[#9B7EBD]" />
                             <span className="text-xl font-bold bg-gradient-to-r from-[#9B7EBD] to-[#D4A574] bg-clip-text text-transparent">
                                 BookSwap
@@ -16,7 +16,7 @@ export function Footer() {
                         <p className="text-[#6B5B73] mb-4">
                             A magical space where stories find new homes and readers discover their next adventure. Join our enchanted community of book lovers.
                         </p>
-                        <div className="flex gap-4">
+                        <div className="flex gap-4 justify-center md:justify-start">
                             <button className="w-10 h-10 rounded-full bg-white/60 hover:bg-white flex items-center justify-center transition-colors border border-[#E8C4D4]/30">
                                 <Mail className="w-5 h-5 text-[#9B7EBD]" />
                             </button>
@@ -30,7 +30,7 @@ export function Footer() {
                     </div>
 
                     {/* Explore */}
-                    <div>
+                    <div className="text-center md:text-left">
                         <h3 className="text-[#3D3344] font-bold mb-4">Explore</h3>
                         <ul className="space-y-3">
                             <li><a href="#" className="text-[#6B5B73] hover:text-[#9B7EBD] transition-colors">About Our Story</a></li>
@@ -41,7 +41,7 @@ export function Footer() {
                     </div>
 
                     {/* Connect */}
-                    <div>
+                    <div className="text-center md:text-left">
                         <h3 className="text-[#3D3344] font-bold mb-4">Connect</h3>
                         <ul className="space-y-3">
                             <li><a href="#" className="text-[#6B5B73] hover:text-[#9B7EBD] transition-colors">Privacy</a></li>

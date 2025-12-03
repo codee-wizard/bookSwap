@@ -68,30 +68,30 @@ export function Homepage() {
             {/* Hero Section */}
             <div className="bg-gradient-to-br from-[#F5EEF9] via-[#F9F6FA] to-[#FFF8F0] py-12 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-7xl mx-auto">
-                    <h1 className="text-4xl font-bold text-[#3D3344] mb-4">
+                    <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#3D3344] mb-3 sm:mb-4">
                         Discover Your Next <span className="text-[#9B7EBD]">Magical Adventure</span>
                     </h1>
-                    <p className="text-[#6B5B73] text-lg mb-8 max-w-2xl">
+                    <p className="text-[#6B5B73] text-base sm:text-lg mb-6 sm:mb-8 max-w-2xl">
                         Explore books from our community or find treasures right in your neighborhood.
                     </p>
 
                     {/* Search & Filter */}
-                    <div className="bg-white p-4 rounded-2xl shadow-lg border border-[#E8C4D4]/30 flex flex-col md:flex-row gap-4">
+                    <div className="bg-white p-3 sm:p-4 rounded-2xl shadow-lg border border-[#E8C4D4]/30 flex flex-col gap-3 sm:gap-4">
                         <div className="flex-1 relative">
-                            <Search className="absolute left-3 top-3.5 w-5 h-5 text-[#A795AD]" />
+                            <Search className="absolute left-3 top-3 sm:top-3.5 w-4 sm:w-5 h-4 sm:h-5 text-[#A795AD]" />
                             <input
                                 type="text"
                                 placeholder="Search by title or author..."
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
-                                className="w-full pl-10 pr-4 py-3 rounded-xl bg-[#F5EEF9] border-none focus:ring-2 focus:ring-[#9B7EBD]/20 text-[#3D3344] placeholder-[#A795AD]"
+                                className="w-full pl-9 sm:pl-10 pr-4 py-2.5 sm:py-3 rounded-xl bg-[#F5EEF9] border-none focus:ring-2 focus:ring-[#9B7EBD]/20 text-[#3D3344] placeholder-[#A795AD] text-sm sm:text-base"
                             />
                         </div>
-                        <div className="flex gap-4">
+                        <div className="flex gap-3 sm:gap-4">
                             <select
                                 value={genre}
                                 onChange={(e) => setGenre(e.target.value)}
-                                className="px-3 py-3 rounded-xl bg-[#F5EEF9] text-[#6B5B73] border-none focus:ring-2 focus:ring-[#9B7EBD]/20"
+                                className="flex-1 px-3 py-2.5 sm:py-3 rounded-xl bg-[#F5EEF9] text-[#6B5B73] border-none focus:ring-2 focus:ring-[#9B7EBD]/20 text-sm sm:text-base"
                             >
                                 <option value="">All Genres</option>
                                 <option value="Fiction">Fiction</option>

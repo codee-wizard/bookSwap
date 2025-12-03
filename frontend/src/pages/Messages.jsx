@@ -15,6 +15,7 @@ export function Messages() {
     const [showRatingModal, setShowRatingModal] = useState(false);
     const [rating, setRating] = useState(5);
     const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
+    const [showMobileChat, setShowMobileChat] = useState(false);
 
     useEffect(() => {
         fetchConversations();
@@ -142,9 +143,9 @@ export function Messages() {
                     <h1 className="text-3xl font-bold text-[#3D3344]">Messages</h1>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
                     {/* Conversations List */}
-                    <div className="lg:col-span-1">
+                    <div className={`lg:col-span-1 ${showMobileChat ? 'hidden lg:block' : 'block'}`}>
                         <div className="bg-white/70 backdrop-blur-sm rounded-2xl border border-[#E8C4D4]/30 shadow-lg overflow-hidden">
                             <div className="p-4 border-b border-[#E8C4D4]/30">
                                 <h2 className="font-bold text-[#3D3344]">Conversations</h2>
@@ -156,7 +157,10 @@ export function Messages() {
                                     conversations.map((conv) => (
                                         <div
                                             key={conv.swapRequest._id}
-                                            onClick={() => setSelectedConversation(conv)}
+                                            onClick={() => {
+                                                setSelectedConversation(conv);
+                                                setShowMobileChat(true);
+                                            }}
                                             className={`relative group p-4 border-b border-[#E8C4D4]/20 cursor-pointer hover:bg-[#F5EEF9] transition-colors ${selectedConversation?.swapRequest._id === conv.swapRequest._id
                                                 ? 'bg-[#F5EEF9]'
                                                 : ''
@@ -212,22 +216,33 @@ export function Messages() {
                     </div>
 
                     {/* Chat Area */}
-                    <div className="lg:col-span-2">
+                    <div className={`lg:col-span-2 ${showMobileChat ? 'block' : 'hidden lg:block'}`}>
                         <div className="bg-white/70 backdrop-blur-sm rounded-2xl border border-[#E8C4D4]/30 shadow-lg h-[600px] flex flex-col">
                             {selectedConversation ? (
                                 <>
                                     {/* Chat Header */}
                                     <div className="p-4 border-b border-[#E8C4D4]/30 flex items-center justify-between gap-3">
-                                        <div className="flex items-center gap-3">
+                                        <div className="flex items-center gap-3 flex-1 min-w-0">
+                                            {/* Mobile Back Button */}
+                                            <button
+                                                onClick={() => setShowMobileChat(false)}
+                                                className="lg:hidden p-2 rounded-lg hover:bg-[#F5EEF9] transition-colors"
+                                            >
+                                                <svg className="w-5 h-5 text-[#6B5B73]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                                </svg>
+                                            </button>
+
                                             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#9B7EBD] to-[#D4A574] flex items-center justify-center text-white font-bold">
                                                 {(selectedConversation.otherUser.fullName || selectedConversation.otherUser.username).charAt(0).toUpperCase()}
                                             </div>
-                                            <div>
-                                                <h3 className="font-bold text-[#3D3344]">
+                                            <div className="flex-1 min-w-0">
+                                                <h3 className="font-bold text-[#3D3344] truncate">
                                                     {selectedConversation.otherUser.fullName || selectedConversation.otherUser.username}
                                                 </h3>
-                                                <div className="flex items-center gap-2 text-sm text-[#6B5B73]">
-                                                    <span>About: {selectedConversation.swapRequest.book?.title}</span>
+                                                <div className="flex items-center gap-2 text-sm text-[#6B5B73] flex-wrap">
+                                                    <span className="hidden sm:inline">About: {selectedConversation.swapRequest.book?.title}</span>
+                                                    <span className="sm:hidden truncate">{selectedConversation.swapRequest.book?.title}</span>
                                                     <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${selectedConversation.swapRequest.status === 'accepted' ? 'bg-green-100 text-green-700' :
                                                         selectedConversation.swapRequest.status === 'rejected' ? 'bg-red-100 text-red-700' :
                                                             selectedConversation.swapRequest.status === 'shipped' ? 'bg-blue-100 text-blue-700' :
@@ -369,7 +384,7 @@ export function Messages() {
             {/* Rating Modal */}
             {showRatingModal && (
                 <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl">
+                    <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl">
                         <div className="flex justify-between items-center mb-6">
                             <h2 className="text-2xl font-bold text-[#3D3344]">Rate User</h2>
                             <button onClick={() => setShowRatingModal(false)} className="p-2 hover:bg-[#F5EEF9] rounded-full transition-colors">

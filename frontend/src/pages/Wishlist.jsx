@@ -53,9 +53,9 @@ export function Wishlist() {
                 <div className="mb-6">
                     <div className="flex items-center gap-2 mb-2">
                         <Heart className="w-6 h-6 text-[#E8C4D4] fill-[#E8C4D4]" />
-                        <h1 className="text-3xl font-bold text-[#3D3344]">My Wishlist</h1>
+                        <h1 className="text-2xl sm:text-3xl font-bold text-[#3D3344]">My Wishlist</h1>
                     </div>
-                    <p className="text-[#6B5B73]">Books you've saved for later</p>
+                    <p className="text-sm sm:text-base text-[#6B5B73]">Books you've saved for later</p>
                 </div>
 
                 {/* Statistics Card */}

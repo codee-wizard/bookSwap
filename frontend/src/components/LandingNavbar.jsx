@@ -13,18 +13,18 @@ export function LandingNavbar() {
                         </span>
                     </Link>
 
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3 flex-wrap">
                         <Link
                             to="/auth"
                             state={{ isLogin: true }}
-                            className="text-[#6B5B73] hover:text-[#9B7EBD] font-medium transition-colors"
+                            className="text-[#6B5B73] hover:text-[#9B7EBD] font-medium transition-colors text-sm sm:text-base"
                         >
                             Login
                         </Link>
                         <Link
                             to="/auth"
                             state={{ isLogin: false }}
-                            className="px-6 py-2.5 rounded-full bg-[#C8B6D6] text-white font-medium hover:bg-[#9B7EBD] transition-all shadow-md hover:shadow-lg"
+                            className="px-4 sm:px-6 py-2 sm:py-2.5 rounded-full bg-[#C8B6D6] text-white font-medium hover:bg-[#9B7EBD] transition-all shadow-md hover:shadow-lg text-sm sm:text-base"
                         >
                             Sign Up
                         </Link>

@@ -162,10 +162,10 @@ export function BookDetail() {
                     Back to Collection
                 </button>
 
-                <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 sm:gap-8">
                     {/* Left Column - Book Image (2/5 width) */}
                     <div className="lg:col-span-2">
-                        <div className="bg-white rounded-3xl p-8 shadow-sm">
+                        <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm">
                             {/* Book Image */}
                             <div className="aspect-[3/4] rounded-2xl overflow-hidden bg-gray-100 mb-6">
                                 {book.imageURL ? (
@@ -246,12 +246,15 @@ export function BookDetail() {
                                 {book.genre}
                                 <Sparkles className="w-3.5 h-3.5" />
                             </span>
+                            <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium ${book.price && book.price > 0 ? 'bg-[#D4A574]/20 text-[#D4A574]' : 'bg-[#9B7EBD]/20 text-[#9B7EBD]'}`}>
+                                {book.price && book.price > 0 ? 'For Swap and Selling' : 'For Swap'}
+                            </span>
                         </div>
 
                         {/* Title and Author */}
                         <div>
-                            <h1 className="text-4xl font-bold text-[#3D3344] mb-2">{book.title}</h1>
-                            <p className="text-xl text-[#6B5B73]">by {book.author}</p>
+                            <h1 className="text-3xl sm:text-4xl font-bold text-[#3D3344] mb-2">{book.title}</h1>
+                            <p className="text-lg sm:text-xl text-[#6B5B73]">{book.author}</p>
                         </div>
 
                         {/* Book Information */}
@@ -389,7 +392,7 @@ export function BookDetail() {
             {/* Payment Modal */}
             {showPaymentModal && (
                 <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl relative">
+                    <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl relative">
                         <button
                             onClick={() => setShowPaymentModal(false)}
                             className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full transition-colors"

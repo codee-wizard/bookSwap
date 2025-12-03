@@ -78,11 +78,9 @@ export function BookCard({ book, onRequestSwap }) {
                         )}
                     </div>
                     <div className="absolute top-3 right-3">
-                        {hasPrice && (
-                            <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm bg-[#D4A574] text-white">
-                                ₹{book.price}
-                            </span>
-                        )}
+                        <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm ${hasPrice ? 'bg-[#D4A574] text-white' : 'bg-[#9B7EBD] text-white'}`}>
+                            {hasPrice ? 'For Swap and Selling' : 'For Swap'}
+                        </span>
                     </div>
                 </div>
 

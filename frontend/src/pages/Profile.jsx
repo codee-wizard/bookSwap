@@ -73,7 +73,7 @@ export function Profile() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Profile Card */}
                     <div className="lg:col-span-1">
-                        <div className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 border border-[#E8C4D4]/30 shadow-lg sticky top-24">
+                        <div className="bg-white/70 backdrop-blur-sm rounded-3xl p-6 sm:p-8 border border-[#E8C4D4]/30 shadow-lg lg:sticky lg:top-24">
                             {/* Avatar */}
                             <div className="flex justify-center mb-6">
                                 <div className="relative">
@@ -171,7 +171,7 @@ export function Profile() {
                                 <Trophy className="w-6 h-6 text-[#D4A574]" />
                                 <h3 className="text-xl font-bold text-[#3D3344]">Achievements</h3>
                             </div>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                                 <div className="bg-[#FFF8F0] rounded-xl p-4 text-center border border-[#E8C4D4]/30">
                                     <div className="text-4xl mb-2">🏆</div>
                                     <div className="font-bold text-[#3D3344]">First Swap</div>
@@ -229,7 +229,7 @@ export function Profile() {
             {/* Edit Profile Modal */}
             {showEditModal && (
                 <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl">
+                    <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl max-h-[90vh] overflow-y-auto">
                         <div className="flex justify-between items-center mb-6">
                             <h2 className="text-2xl font-bold text-[#3D3344]">Edit Profile</h2>
                             <button onClick={() => setShowEditModal(false)} className="p-2 hover:bg-[#F5EEF9] rounded-full transition-colors">
