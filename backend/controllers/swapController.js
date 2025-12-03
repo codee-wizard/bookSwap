@@ -95,6 +95,11 @@ const updateSwapStatus = async (req, res) => {
             return res.status(404).json({ status: false, message: 'Swap request not found' });
         }
 
+        // Check if the book still exists
+        if (!swapRequest.book) {
+            return res.status(404).json({ status: false, message: 'Book no longer exists' });
+        }
+
         if (swapRequest.owner.toString() !== req.user._id.toString()) {
             return res.status(401).json({ status: false, message: 'Not authorized to update this request' });
         }
