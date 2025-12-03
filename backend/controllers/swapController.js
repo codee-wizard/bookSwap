@@ -18,6 +18,10 @@ const createSwapRequest = async (req, res) => {
             return res.status(400).json({ status: false, message: 'You cannot request your own book' });
         }
 
+        if (book.isSwapped) {
+            return res.status(400).json({ status: false, message: 'This book has already been swapped' });
+        }
+
         const existingRequest = await SwapRequest.findOne({
             requester: req.user._id,
             book: bookId,
@@ -35,14 +39,15 @@ const createSwapRequest = async (req, res) => {
             type: req.body.type || 'swap',
             shippingAddress: req.body.shippingAddress,
             paymentStatus: req.body.type === 'buy' ? 'paid' : 'pending',
-            status: req.body.type === 'buy' ? 'accepted' : 'pending' // Auto-accept buy requests as they are paid
+            paymentStatus: req.body.type === 'buy' ? 'paid' : 'pending',
+            status: 'pending' // Buy requests now wait for seller acceptance
         });
 
         const createdSwapRequest = await swapRequest.save();
 
         // Create automated message
         const messageContent = req.body.type === 'buy'
-            ? `💰 I've purchased your book "${book.title}". Please ship it to: ${req.body.shippingAddress}`
+            ? `👋 Hi! I'm interested in buying your book "${book.title}". Could you please let me know more about its condition and availability? Thanks!`
             : `👋 I'm interested in swapping for your book "${book.title}".`;
 
         await Message.create({
@@ -98,6 +103,10 @@ const updateSwapStatus = async (req, res) => {
             return res.status(400).json({ status: false, message: 'Invalid status' });
         }
 
+        if (status === 'accepted' && swapRequest.book.isSwapped) {
+            return res.status(400).json({ status: false, message: 'This book has already been swapped' });
+        }
+
         swapRequest.status = status;
         const updatedSwapRequest = await swapRequest.save();
 
@@ -108,6 +117,13 @@ const updateSwapStatus = async (req, res) => {
         if (status === 'accepted') {
             await Book.updateOne({ _id: swapRequest.book._id }, { isSwapped: true });
             console.log(await Book.find({ _id: swapRequest.book._id }));
+
+            // Auto-reject other pending requests for this book
+            await SwapRequest.updateMany(
+                { book: swapRequest.book._id, status: 'pending', _id: { $ne: swapRequest._id } },
+                { status: 'rejected' }
+            );
+
             messageContent = `🎉 Great news! I've accepted your swap request for "${swapRequest.book.title}". Let's arrange the exchange!`;
         } else if (status === 'rejected') {
             await Book.updateOne({ _id: swapRequest.book._id }, { isSwapped: false });

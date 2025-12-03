@@ -146,9 +146,56 @@ const getUserStats = async (req, res) => {
     }
 };
 
+// Add rating to user
+const addRating = async (req, res) => {
+    const { rating, review } = req.body;
+    const targetUserId = req.params.userId;
+    const reviewerId = req.user._id;
+
+    try {
+        const user = await User.findById(targetUserId);
+        if (!user) {
+            return res.status(404).json({ status: false, message: 'User not found' });
+        }
+
+        // Check if reviewer is the same as target user
+        if (targetUserId.toString() === reviewerId.toString()) {
+            return res.status(400).json({ status: false, message: 'You cannot rate yourself' });
+        }
+
+        // Add new rating
+        const newRating = {
+            rating: Number(rating),
+            review,
+            reviewer: reviewerId
+        };
+
+        user.ratings.push(newRating);
+
+        // Calculate new average
+        const totalRating = user.ratings.reduce((sum, item) => sum + item.rating, 0);
+        user.averageRating = totalRating / user.ratings.length;
+        user.reviewCount = user.ratings.length;
+
+        await user.save();
+
+        res.status(201).json({
+            status: true,
+            message: 'Rating added successfully',
+            data: {
+                averageRating: user.averageRating,
+                reviewCount: user.reviewCount
+            }
+        });
+    } catch (error) {
+        res.status(400).json({ status: false, message: error.message });
+    }
+};
+
 module.exports = {
     registerUser,
     loginUser,
     updateProfile,
-    getUserStats
+    getUserStats,
+    addRating
 }

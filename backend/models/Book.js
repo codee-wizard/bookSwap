@@ -43,16 +43,16 @@ const BookSchema = new mongoose.Schema({
         type: String,
         enum: ['Sell', 'Swap'],
         default: 'Swap',
-        required: true
+        required: false
     },
-    isSwapped:{
+    isSwapped: {
         type: Boolean,
         default: false,
         required: true
     },
     price: {
         type: Number,
-        required: function () { return this.listingType === 'Sell'; }
+        required: false
     },
     owner: {
         type: mongoose.Schema.Types.ObjectId,
