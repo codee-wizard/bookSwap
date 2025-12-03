@@ -95,6 +95,7 @@ export function Homepage() {
                             >
                                 <option value="">All Genres</option>
                                 <option value="Fiction">Fiction</option>
+                                <option value="Self-help">Self-help</option>
                                 <option value="Fantasy">Fantasy</option>
                                 <option value="Science Fiction">Science Fiction (Sci-Fi)</option>
                                 <option value="Dystopian">Dystopian</option>

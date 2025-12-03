@@ -284,6 +284,7 @@ export function MyBooks() {
                                         />
                                         <datalist id="genre-options">
                                             <option value="Fiction" />
+                                            <option value="Self-help" />
                                             <option value="Fantasy" />
                                             <option value="Science Fiction" />
                                             <option value="Dystopian" />
