@@ -156,6 +156,20 @@ const deleteBook = async (req, res) => {
                 return res.status(401).json({ status: false, message: 'Not authorized to delete this book' });
             }
 
+            // Get all swap requests for this book
+            const SwapRequest = require('../models/SwapRequest');
+            const Message = require('../models/Message');
+            const swapRequests = await SwapRequest.find({ book: req.params.id });
+
+            // Delete all messages associated with these swap requests
+            for (const swapRequest of swapRequests) {
+                await Message.deleteMany({ swapRequest: swapRequest._id });
+            }
+
+            // Delete all swap requests for this book
+            await SwapRequest.deleteMany({ book: req.params.id });
+
+            // Delete the book
             await book.deleteOne();
             res.json({ status: true, message: 'Book removed' });
         } else {

@@ -38,7 +38,11 @@ export function Messages() {
     const fetchConversations = async () => {
         try {
             const res = await messageService.getConversations();
-            setConversations(res.data.data);
+            // Filter out conversations where swap request or book is null (orphaned records)
+            const validConversations = res.data.data.filter(
+                conv => conv.swapRequest && conv.swapRequest.book
+            );
+            setConversations(validConversations);
             setLoading(false);
         } catch (error) {
             console.error('Error fetching conversations:', error);
@@ -117,7 +121,14 @@ export function Messages() {
             fetchConversations(); // Refresh list to update any status indicators if we add them
             fetchMessages(selectedConversation.swapRequest._id); // Refresh messages to see automated message
         } catch (error) {
-            alert('Error updating status');
+            const errorMessage = error.response?.data?.message || 'Error updating status';
+            alert(errorMessage);
+            // If the swap request or book no longer exists, refresh conversations to remove it
+            if (error.response?.status === 404) {
+                setSelectedConversation(null);
+                setShowMobileChat(false);
+                fetchConversations();
+            }
         }
     };
 
