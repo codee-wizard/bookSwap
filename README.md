@@ -41,7 +41,7 @@
 |-----------|--------|--------------|---------|
 | `/api/auth/signup` | POST | Register new user | Public |
 | `/api/auth/login` | POST | Authenticate user | Public |
-| `/api/books` | GET | Get all books | Authenticated |
+| `/api/books` | GET | Get all books | Public |
 | `/api/books` | POST | Add a new book | Authenticated |
 | `/api/books/:id` | GET | Get details of a specific book | Public |
 | `/api/books/:id` | PUT | Update book details | Authenticated |
