@@ -213,7 +213,7 @@ export function BookDetail() {
                                     >
                                         {existingRequest ? 'Undo Request' : 'Request to Swap'}
                                     </button>
-                                    {book.listingType === 'Sell' && (
+                                    {book.price && book.price > 0 && (
                                         <button
                                             onClick={() => handleSwapAction('buy')}
                                             disabled={existingRequest}
@@ -223,7 +223,7 @@ export function BookDetail() {
                                                 }`}
                                         >
                                             <ShoppingBag className="w-5 h-5" />
-                                            {existingRequest ? 'Order Pending' : `Buy Now - ₹${book.price || '0'}`}
+                                            {existingRequest ? 'Order Pending' : `Buy Now - ₹${book.price}`}
                                         </button>
                                     )}
                                     <button

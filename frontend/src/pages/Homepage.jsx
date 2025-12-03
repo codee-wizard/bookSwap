@@ -11,7 +11,7 @@ export function Homepage() {
     const [nearbyBooks, setNearbyBooks] = useState([]);
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState('');
-    const [filterType, setFilterType] = useState('');
+
     const [genre, setGenre] = useState('');
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(false);
@@ -21,11 +21,11 @@ export function Homepage() {
     useEffect(() => {
         setPage(1); // Reset page when filters change
         fetchBooks(1, true);
-    }, [search, filterType, genre]);
+    }, [search, genre]);
 
     const fetchBooks = async (pageNum = 1, isNewFilter = false) => {
         try {
-            const params = { search, type: filterType, genre, page: pageNum, limit: 8 };
+            const params = { search, genre, page: pageNum, limit: 8 };
             const res = await bookService.getAllBooks(params);
 
             if (isNewFilter) {
@@ -52,8 +52,10 @@ export function Homepage() {
 
     const handleRequestSwap = async (book) => {
         try {
-            await swapService.createRequest({ bookId: book._id });
-            alert('Swap request sent!');
+            const requestType = book.type || 'swap'; // Default to 'swap' if type not specified
+            await swapService.createRequest({ bookId: book._id, type: requestType });
+            const message = requestType === 'buy' ? 'Buy request sent!' : 'Swap request sent!';
+            alert(message);
         } catch (error) {
             alert(error.response?.data?.message || 'Error sending request');
         }
@@ -87,36 +89,29 @@ export function Homepage() {
                         </div>
                         <div className="flex gap-4">
                             <select
-                                value={filterType}
-                                onChange={(e) => setFilterType(e.target.value)}
-                                className="px-4 py-3 rounded-xl bg-[#F5EEF9] text-[#6B5B73] border-none focus:ring-2 focus:ring-[#9B7EBD]/20"
-                            >
-                                <option value="">All Types</option>
-                                <option value="Swap">Swap</option>
-                                <option value="Sell">Buy</option>
-                            </select>
-                            <select
                                 value={genre}
                                 onChange={(e) => setGenre(e.target.value)}
                                 className="px-3 py-3 rounded-xl bg-[#F5EEF9] text-[#6B5B73] border-none focus:ring-2 focus:ring-[#9B7EBD]/20"
                             >
                                 <option value="">All Genres</option>
+                                <option value="Fiction">Fiction</option>
+                                <option value="Fantasy">Fantasy</option>
+                                <option value="Science Fiction">Science Fiction (Sci-Fi)</option>
+                                <option value="Dystopian">Dystopian</option>
+                                <option value="Adventure">Adventure</option>
                                 <option value="Romance">Romance</option>
+                                <option value="Historical Fiction">Historical Fiction</option>
+                                <option value="Horror">Horror</option>
                                 <option value="Thriller">Thriller</option>
-                                <option value="Sci-Fi">Sci-Fi</option>
-                                <option value="Biography">Biography</option>
-                                <option value="Self-help">Self-help</option>
-                                <option value="History">History</option>
-                                <option value="Sonnet">Sonnet</option>
-                                <option value="Free Verse">Free Verse</option>
-                                <option value="Haiku">Haiku</option>
-                                <option value="Plays">Plays</option>
-                                <option value="Screenplays">Screenplays</option>
-                                <option value="Textbooks">Textbooks</option>
-                                <option value="Manuals">Manuals</option>
-                                <option value="Comics">Comics</option>
-                                <option value="Novellas">Novellas</option>
-                                <option value="Anthologies">Anthologies</option>
+                                <option value="Mystery">Mystery / Crime</option>
+                                <option value="Detective Fiction">Detective Fiction</option>
+                                <option value="Drama">Drama</option>
+                                <option value="Literary Fiction">Literary Fiction</option>
+                                <option value="Magical Realism">Magical Realism</option>
+                                <option value="Realistic Fiction">Realistic Fiction</option>
+                                <option value="Mythology">Mythology / Folklore</option>
+                                <option value="Young Adult">Young Adult (YA)</option>
+                                <option value="Childrens Fiction">Children's Fiction</option>
                             </select>
                         </div>
                     </div>

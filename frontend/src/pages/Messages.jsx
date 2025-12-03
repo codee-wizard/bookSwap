@@ -3,7 +3,8 @@ import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { messageService } from '../services/messageService';
 import { swapService } from '../services/swapService';
-import { MessageCircle, Send, Clock, BookOpen, User, Trash2, Check, X, Truck, Package } from 'lucide-react';
+import { authService } from '../services/authServices';
+import { MessageCircle, Send, Clock, BookOpen, User, Trash2, Check, X, Truck, Package, Star } from 'lucide-react';
 
 export function Messages() {
     const [conversations, setConversations] = useState([]);
@@ -11,6 +12,8 @@ export function Messages() {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
     const [loading, setLoading] = useState(true);
+    const [showRatingModal, setShowRatingModal] = useState(false);
+    const [rating, setRating] = useState(5);
     const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
 
     useEffect(() => {
@@ -114,6 +117,18 @@ export function Messages() {
             fetchMessages(selectedConversation.swapRequest._id); // Refresh messages to see automated message
         } catch (error) {
             alert('Error updating status');
+        }
+    };
+
+    const handleSubmitRating = async (e) => {
+        e.preventDefault();
+        try {
+            await authService.addRating(selectedConversation.otherUser._id, { rating });
+            alert('Rating submitted successfully!');
+            setShowRatingModal(false);
+            setRating(5);
+        } catch (error) {
+            alert(error.response?.data?.message || 'Error submitting rating');
         }
     };
 
@@ -275,6 +290,18 @@ export function Messages() {
                                                     )}
                                                 </div>
                                             )}
+
+                                        {/* Rate User Button */}
+                                        {(selectedConversation.swapRequest.status === 'delivered' ||
+                                            selectedConversation.swapRequest.status === 'accepted') && (
+                                                <button
+                                                    onClick={() => setShowRatingModal(true)}
+                                                    className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-[#FFF8F0] text-[#D4A574] hover:bg-[#FBEAD2] transition-colors text-sm font-medium border border-[#D4A574]/30"
+                                                >
+                                                    <Star className="w-4 h-4" />
+                                                    Rate User
+                                                </button>
+                                            )}
                                     </div>
 
                                     {/* Messages */}
@@ -338,6 +365,42 @@ export function Messages() {
             </div>
 
             <Footer />
+
+            {/* Rating Modal */}
+            {showRatingModal && (
+                <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+                    <div className="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl">
+                        <div className="flex justify-between items-center mb-6">
+                            <h2 className="text-2xl font-bold text-[#3D3344]">Rate User</h2>
+                            <button onClick={() => setShowRatingModal(false)} className="p-2 hover:bg-[#F5EEF9] rounded-full transition-colors">
+                                <X className="w-6 h-6 text-[#6B5B73]" />
+                            </button>
+                        </div>
+                        <form onSubmit={handleSubmitRating} className="space-y-6">
+                            <div className="flex justify-center gap-2">
+                                {[1, 2, 3, 4, 5].map((star) => (
+                                    <button
+                                        key={star}
+                                        type="button"
+                                        onClick={() => setRating(star)}
+                                        className="focus:outline-none transition-transform hover:scale-110"
+                                    >
+                                        <Star
+                                            className={`w-10 h-10 ${star <= rating ? 'text-[#D4A574] fill-[#D4A574]' : 'text-[#E8C4D4]'}`}
+                                        />
+                                    </button>
+                                ))}
+                            </div>
+                            <button
+                                type="submit"
+                                className="w-full py-4 rounded-xl bg-[#9B7EBD] text-white font-bold hover:bg-[#8A6EA8] transition-colors shadow-lg"
+                            >
+                                Submit Rating
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

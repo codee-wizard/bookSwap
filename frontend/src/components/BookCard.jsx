@@ -6,10 +6,10 @@ import { wishlistService } from '../services/wishlistService';
 export function BookCard({ book, onRequestSwap }) {
     const navigate = useNavigate();
     const [isWishlisted, setIsWishlisted] = useState(false);
-    const isSell = book.listingType === 'Sell';
+    const hasPrice = book.price && book.price > 0;
     const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
     const isOwnBook = currentUser._id === book.owner?._id;
-    const [available,setAvailable] = useState(true);
+    const [available, setAvailable] = useState(true);
 
     useEffect(() => {
         checkWishlistStatus();
@@ -78,11 +78,11 @@ export function BookCard({ book, onRequestSwap }) {
                         )}
                     </div>
                     <div className="absolute top-3 right-3">
-                        <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm ${isSell ? 'bg-[#D4A574] text-white' :
-                            'bg-[#9B7EBD] text-white'
-                            }`}>
-                            {book.listingType}
-                        </span>
+                        {hasPrice && (
+                            <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm bg-[#D4A574] text-white">
+                                ₹{book.price}
+                            </span>
+                        )}
                     </div>
                 </div>
 
@@ -109,10 +109,10 @@ export function BookCard({ book, onRequestSwap }) {
                             <BookOpen className="w-4 h-4 text-[#9B7EBD]" />
                             <span>{book.language || 'English'} • {book.publishedYear || 'N/A'}</span>
                         </div>
-                        {isSell && (
+                        {hasPrice && (
                             <div className="flex items-center gap-2 text-sm font-bold text-[#3D3344]">
                                 <DollarSign className="w-4 h-4 text-[#D4A574]" />
-                                <span>${book.price}</span>
+                                <span>₹{book.price}</span>
                             </div>
                         )}
                     </div>
@@ -120,16 +120,30 @@ export function BookCard({ book, onRequestSwap }) {
             </div>
 
             <div className="p-5">
-                <button
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        onRequestSwap(book);
-                    }}
-                    disabled={book.isSwapped}
-                    className="disabled:cursor-not-allowed w-full py-2.5 rounded-xl bg-[#F5EEF9] text-[#9B7EBD] font-medium hover:bg-[#9B7EBD] hover:text-white transition-all duration-300"
-                >
-                    {book.isSwapped ? 'Swapped' : isSell ? 'Buy Now' : 'Request Swap'}
-                </button>
+                <div className="flex gap-2">
+                    <button
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            onRequestSwap({ ...book, type: 'swap' });
+                        }}
+                        disabled={book.isSwapped}
+                        className="flex-1 py-2.5 rounded-xl bg-[#F5EEF9] text-[#9B7EBD] font-medium hover:bg-[#9B7EBD] hover:text-white transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50"
+                    >
+                        {book.isSwapped ? 'Swapped' : 'Request Swap'}
+                    </button>
+
+                    {hasPrice && !book.isSwapped && (
+                        <button
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                onRequestSwap({ ...book, type: 'buy' });
+                            }}
+                            className="flex-1 py-2.5 rounded-xl bg-[#FFF8F0] text-[#D4A574] font-medium hover:bg-[#D4A574] hover:text-white transition-all duration-300 border border-[#D4A574]/30"
+                        >
+                            Buy Now
+                        </button>
+                    )}
+                </div>
             </div>
         </div >
     );

@@ -12,7 +12,7 @@ export function MyBooks() {
     const [editingBook, setEditingBook] = useState(null);
     const [formData, setFormData] = useState({
         title: '', author: '', genre: '', condition: 'Good',
-        description: '', listingType: 'Swap', price: '', imageURL: '',
+        description: '', price: '', imageURL: '',
         publishedYear: '', pages: '', language: 'English'
     });
 
@@ -42,11 +42,11 @@ export function MyBooks() {
     };
 
     const getSwapCountForBook = (bookId) => {
-        return swapRequests.filter(req => req.book._id === bookId && req.status === 'pending').length;
+        return swapRequests.filter(req => req.book && req.book._id === bookId && req.status === 'pending').length;
     };
 
-    const activeRequests = swapRequests.filter(req => req.status === 'pending').length;
-    const completedSwaps = swapRequests.filter(req => req.status === 'accepted').length;
+    const activeRequests = swapRequests.filter(req => req.book && req.status === 'pending').length;
+    const completedSwaps = swapRequests.filter(req => req.book && req.status === 'accepted').length;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -61,7 +61,7 @@ export function MyBooks() {
             fetchMyBooks();
             setFormData({
                 title: '', author: '', genre: '', condition: 'Good',
-                description: '', listingType: 'Swap', price: '', imageURL: '',
+                description: '', price: '', imageURL: '',
                 publishedYear: '', pages: '', language: 'English'
             });
         } catch (error) {
@@ -77,7 +77,6 @@ export function MyBooks() {
             genre: book.genre,
             condition: book.condition,
             description: book.description,
-            listingType: book.listingType,
             price: book.price || '',
             imageURL: book.imageURL || '',
             publishedYear: book.publishedYear || '',
@@ -282,22 +281,24 @@ export function MyBooks() {
                                             placeholder="Select or type genre"
                                         />
                                         <datalist id="genre-options">
+                                            <option value="Fiction" />
+                                            <option value="Fantasy" />
+                                            <option value="Science Fiction" />
+                                            <option value="Dystopian" />
+                                            <option value="Adventure" />
                                             <option value="Romance" />
+                                            <option value="Historical Fiction" />
+                                            <option value="Horror" />
                                             <option value="Thriller" />
-                                            <option value="Sci-Fi" />
-                                            <option value="Biography" />
-                                            <option value="Self-help" />
-                                            <option value="History" />
-                                            <option value="Sonnet" />
-                                            <option value="Free Verse" />
-                                            <option value="Haiku" />
-                                            <option value="Plays" />
-                                            <option value="Screenplays" />
-                                            <option value="Textbooks" />
-                                            <option value="Manuals" />
-                                            <option value="Comics" />
-                                            <option value="Novellas" />
-                                            <option value="Anthologies" />
+                                            <option value="Mystery" />
+                                            <option value="Detective Fiction" />
+                                            <option value="Drama" />
+                                            <option value="Literary Fiction" />
+                                            <option value="Magical Realism" />
+                                            <option value="Realistic Fiction" />
+                                            <option value="Mythology" />
+                                            <option value="Young Adult" />
+                                            <option value="Childrens Fiction" />
                                         </datalist>
                                     </div>
                                     <div>
@@ -328,44 +329,15 @@ export function MyBooks() {
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
-                                        <label className="block text-sm font-medium text-[#3D3344] mb-2">Listing Type</label>
-                                        <div className="flex gap-4">
-                                            <label className="flex items-center gap-2 cursor-pointer">
-                                                <input
-                                                    type="radio"
-                                                    name="listingType"
-                                                    value="Swap"
-                                                    checked={formData.listingType === 'Swap'}
-                                                    onChange={(e) => setFormData({ ...formData, listingType: e.target.value })}
-                                                    className="text-[#9B7EBD] focus:ring-[#9B7EBD]"
-                                                />
-                                                <span className="text-[#3D3344]">Swap</span>
-                                            </label>
-                                            <label className="flex items-center gap-2 cursor-pointer">
-                                                <input
-                                                    type="radio"
-                                                    name="listingType"
-                                                    value="Sell"
-                                                    checked={formData.listingType === 'Sell'}
-                                                    onChange={(e) => setFormData({ ...formData, listingType: e.target.value })}
-                                                    className="text-[#9B7EBD] focus:ring-[#9B7EBD]"
-                                                />
-                                                <span className="text-[#3D3344]">Sell</span>
-                                            </label>
-                                        </div>
+                                        <label className="block text-sm font-medium text-[#3D3344] mb-2">Selling Price (₹) - Optional</label>
+                                        <input
+                                            type="number"
+                                            value={formData.price}
+                                            onChange={e => setFormData({ ...formData, price: e.target.value })}
+                                            className="w-full px-4 py-3 rounded-xl bg-[#F5EEF9] border-none focus:ring-2 focus:ring-[#9B7EBD]/20"
+                                            placeholder="Leave empty for Swap only"
+                                        />
                                     </div>
-                                    {formData.listingType === 'Sell' && (
-                                        <div>
-                                            <label className="block text-sm font-medium text-[#3D3344] mb-2">Price (₹)</label>
-                                            <input
-                                                type="number"
-                                                required
-                                                value={formData.price}
-                                                onChange={e => setFormData({ ...formData, price: e.target.value })}
-                                                className="w-full px-4 py-3 rounded-xl bg-[#F5EEF9] border-none focus:ring-2 focus:ring-[#9B7EBD]/20"
-                                            />
-                                        </div>
-                                    )}
                                 </div>
 
                                 <div className="grid grid-cols-3 gap-4">
